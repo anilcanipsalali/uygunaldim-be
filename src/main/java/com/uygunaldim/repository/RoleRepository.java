@@ -1,7 +1,9 @@
 package com.uygunaldim.repository;
 
+import com.uygunaldim.entity.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RoleRepository {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
