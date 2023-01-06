@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface MarketRepository extends JpaRepository<Market, Long> {
     Optional<Market> findById(Long id);
     List<Market> findAll();
+    Boolean existsByName(String name);
 }

@@ -18,8 +18,8 @@ public class GlobalControllerAdvice {
     public ResponseEntity<String> handleGlobalException(Exception e) {
         log.error("Exception: {}", e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(RETURN_CODE.headerName(), "UYGNALDM-00500");
-        responseHeaders.add(RETURN_MESSAGE.headerName(), e.getMessage());
+        responseHeaders.add(RETURN_CODE.getHeader(), "UYGNALDM-00500");
+        responseHeaders.add(RETURN_MESSAGE.getHeader(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(responseHeaders).build();
     }
 
@@ -27,23 +27,26 @@ public class GlobalControllerAdvice {
     public ResponseEntity<String> methodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException: {}", e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(RETURN_CODE.headerName(), "UYGNALDM-00400");
-        responseHeaders.add(RETURN_MESSAGE.headerName(), e.getMessage());
+        responseHeaders.add(RETURN_CODE.getHeader(), "UYGNALDM-00400");
+        responseHeaders.add(RETURN_MESSAGE.getHeader(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(responseHeaders).build();
     }
 
-    @ExceptionHandler(value = {
-            MarketNotFoundException.class,
-            PermissionNotFoundException.class,
-            RoleNotFoundException.class,
-            ProductNotFoundException.class,
-            UserNotFoundException.class
-    })
+    @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<String> handleParameterNotFoundException(UygunAldimException e) {
         log.error("UygunAldimException: {}", e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(RETURN_CODE.headerName(), e.getErrorCode());
-        responseHeaders.add(RETURN_MESSAGE.headerName(), e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(responseHeaders).build();
+        responseHeaders.add(RETURN_CODE.getHeader(), e.getErrorCode());
+        responseHeaders.add(RETURN_MESSAGE.getHeader(), e.getErrorMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(responseHeaders).build();
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<String> handleAlreadyExistsException(UygunAldimException e) {
+        log.error("UygunAldimException: {}", e.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add(RETURN_CODE.getHeader(), e.getErrorCode());
+        responseHeaders.add(RETURN_MESSAGE.getHeader(), e.getErrorMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(responseHeaders).build();
     }
 }

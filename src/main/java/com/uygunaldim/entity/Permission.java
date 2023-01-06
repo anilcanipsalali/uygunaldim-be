@@ -3,6 +3,7 @@ package com.uygunaldim.entity;
 import com.uygunaldim.dto.PermissionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "PERMISSION")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class Permission {
     @Id

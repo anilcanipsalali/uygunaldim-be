@@ -1,5 +1,6 @@
 package com.uygunaldim.dto;
 
+import com.uygunaldim.entity.Market;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,14 @@ public class MarketDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ProductDto> products;
+
+    public static MarketDto of(Market market) {
+        return MarketDto.builder()
+                .id(market.getId())
+                .name(market.getName())
+                .createdAt(market.getCreatedAt())
+                .updatedAt(market.getUpdatedAt())
+                .products(market.getProducts().stream().map(ProductDto::of).toList())
+                .build();
+    }
 }

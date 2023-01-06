@@ -3,6 +3,7 @@ package com.uygunaldim.entity;
 import com.uygunaldim.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "ROLE")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class Role {
     @Id

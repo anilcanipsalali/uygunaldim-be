@@ -3,6 +3,7 @@ package com.uygunaldim.entity;
 import com.uygunaldim.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,15 +13,16 @@ import java.time.LocalDateTime;
 @Table(name = "\"USER\"")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class User {
     @Id
     @SequenceGenerator(name = "seqUserId", sequenceName = "seq_user_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUserId")
     private Long id;
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
-    @Column(name = "USERNAME", nullable = false)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
     @Column(name = "PASSWORD", nullable = false)
     private String password;
