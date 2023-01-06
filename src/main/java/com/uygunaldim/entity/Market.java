@@ -27,8 +27,7 @@ public class Market {
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL)
     private List<Product> products;
 
     public static Market of(MarketDto marketDto) {

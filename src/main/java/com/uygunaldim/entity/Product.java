@@ -34,7 +34,7 @@ public class Product {
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    @JoinColumn(name = "market_id", referencedColumnName = "id")
     private Market market;
 
     public static Product of(ProductDto productDto) {

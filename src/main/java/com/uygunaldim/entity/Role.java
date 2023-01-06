@@ -31,7 +31,6 @@ public class Role {
     @JoinColumn(name = "permission_id", referencedColumnName = "id")
     private List<Permission> permissions;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<User> users;
 
     public static Role of(RoleDto roleDto) {
