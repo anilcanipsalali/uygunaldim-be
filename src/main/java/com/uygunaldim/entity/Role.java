@@ -32,7 +32,7 @@ public class Role {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "permission_id", referencedColumnName = "id")
     private List<Permission> permissions;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
 
     public static Role of(RoleDto roleDto) {

@@ -31,7 +31,7 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
