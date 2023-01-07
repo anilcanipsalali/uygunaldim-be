@@ -4,6 +4,7 @@ import com.uygunaldim.dto.ProductDto;
 import com.uygunaldim.dto.request.ProductRequest;
 import com.uygunaldim.entity.Product;
 import com.uygunaldim.entity.ProductLog;
+import com.uygunaldim.entity.enums.OperationEnum;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.ProductLogRepository;
@@ -39,16 +40,17 @@ public class ProductService {
 
     public ProductDto updateProduct(ProductRequest request) {
         Product product = findProductById(request.getId());
-        product.setId(request.getId());
         product.setQuantity(request.getQuantity());
         product.setName(request.getName());
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
         product.setMarket(marketService.getMarketIfExistsOrCreate(request));
         product.setUpdatedAt(LocalDateTime.now());
+
         return ProductDto.of(productLogRepository.save(ProductLog.builder()
                         .product(productRepository.save(product))
                         .createdAt(LocalDateTime.now())
+                        .operation(OperationEnum.UPDATE)
                         .build()).getProduct());
     }
 
@@ -69,6 +71,7 @@ public class ProductService {
                                     .market(marketService.getMarketIfExistsOrCreate(request))
                                     .build()))
                         .createdAt(LocalDateTime.now())
+                        .operation(OperationEnum.CREATE)
                         .build()).getProduct();
 
         return ProductDto.of(product);
@@ -76,6 +79,11 @@ public class ProductService {
 
     public String deleteProduct(Long id) {
         Product product = findProductById(id);
+        productLogRepository.save(ProductLog.builder()
+                        .product(product)
+                        .createdAt(LocalDateTime.now())
+                        .operation(OperationEnum.DELETE)
+                        .build());
         productRepository.deleteById(id);
         return "Product with name: " + product.getName() + " is deleted!";
     }

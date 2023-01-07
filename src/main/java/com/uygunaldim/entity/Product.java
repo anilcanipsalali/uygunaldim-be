@@ -2,10 +2,8 @@ package com.uygunaldim.entity;
 
 import com.uygunaldim.dto.MarketProductDto;
 import com.uygunaldim.dto.ProductDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.uygunaldim.dto.ProductLogDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
+@ToString
 public class Product {
     @Id
     @SequenceGenerator(name = "seqProductId", sequenceName = "seq_product_id")
@@ -35,7 +34,7 @@ public class Product {
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "market_id", referencedColumnName = "id")
     private Market market;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -51,6 +50,19 @@ public class Product {
                 .createdAt(productDto.getCreatedAt())
                 .updatedAt(productDto.getUpdatedAt())
                 .market(Market.of(productDto.getMarket()))
+                .build();
+    }
+
+    public static Product of(ProductLogDto productLogDto) {
+        return Product.builder()
+                .id(productLogDto.getProduct().getId())
+                .quantity(productLogDto.getProduct().getQuantity())
+                .name(productLogDto.getProduct().getName())
+                .weight(productLogDto.getProduct().getWeight())
+                .price(productLogDto.getProduct().getPrice())
+                .createdAt(productLogDto.getProduct().getCreatedAt())
+                .updatedAt(productLogDto.getProduct().getUpdatedAt())
+                .market(Market.of(productLogDto.getProduct().getMarket()))
                 .build();
     }
 

@@ -9,5 +9,4 @@ public class UygunAldim {
 	public static void main(String[] args) {
 		SpringApplication.run(UygunAldim.class, args);
 	}
-
 }
