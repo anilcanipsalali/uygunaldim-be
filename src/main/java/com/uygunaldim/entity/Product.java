@@ -1,5 +1,6 @@
 package com.uygunaldim.entity;
 
+import com.uygunaldim.dto.MarketProductDto;
 import com.uygunaldim.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,7 @@ public class Product {
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market_id", referencedColumnName = "id")
     private Market market;
 
@@ -47,6 +48,18 @@ public class Product {
                 .createdAt(productDto.getCreatedAt())
                 .updatedAt(productDto.getUpdatedAt())
                 .market(Market.of(productDto.getMarket()))
+                .build();
+    }
+
+    public static Product of(MarketProductDto marketProductDto) {
+        return Product.builder()
+                .id(marketProductDto.getId())
+                .quantity(marketProductDto.getQuantity())
+                .name(marketProductDto.getName())
+                .weight(marketProductDto.getWeight())
+                .price(marketProductDto.getPrice())
+                .createdAt(marketProductDto.getCreatedAt())
+                .updatedAt(marketProductDto.getUpdatedAt())
                 .build();
     }
 }

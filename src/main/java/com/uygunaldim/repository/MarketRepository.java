@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MarketRepository extends JpaRepository<Market, Long> {
     Optional<Market> findById(Long id);
+    Optional<Market> findByName(String name);
     List<Market> findAll();
     Boolean existsByName(String name);
 }

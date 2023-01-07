@@ -1,5 +1,6 @@
 package com.uygunaldim.entity;
 
+import com.uygunaldim.dto.RoleUserDto;
 import com.uygunaldim.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +31,7 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
@@ -43,6 +44,16 @@ public class User {
                 .role(Role.of(userDto.getRole()))
                 .createdAt(userDto.getCreatedAt())
                 .updatedAt(userDto.getUpdatedAt())
+                .build();
+    }
+
+    public static User of(RoleUserDto roleUserDto) {
+        return User.builder()
+                .id(roleUserDto.getId())
+                .email(roleUserDto.getEmail())
+                .username(roleUserDto.getUsername())
+                .createdAt(roleUserDto.getCreatedAt())
+                .updatedAt(roleUserDto.getUpdatedAt())
                 .build();
     }
 }

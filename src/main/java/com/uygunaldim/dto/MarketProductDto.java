@@ -6,10 +6,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 @Data
 @Builder
-public class ProductDto {
+public class MarketProductDto {
     private Long id;
     private Integer quantity;
     private String name;
@@ -17,10 +16,9 @@ public class ProductDto {
     private BigDecimal price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private ProductMarketDto market;
 
-    public static ProductDto of(Product product) {
-        return ProductDto.builder()
+    public static MarketProductDto of(Product product) {
+        return MarketProductDto.builder()
                 .id(product.getId())
                 .quantity(product.getQuantity())
                 .name(product.getName())
@@ -28,7 +26,6 @@ public class ProductDto {
                 .price(product.getPrice())
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
-                .market(ProductMarketDto.of(product.getMarket()))
                 .build();
     }
 }

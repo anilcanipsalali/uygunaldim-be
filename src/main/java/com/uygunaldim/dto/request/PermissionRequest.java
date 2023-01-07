@@ -1,19 +1,18 @@
 package com.uygunaldim.dto.request;
 
-import com.uygunaldim.dto.RoleDto;
+import com.uygunaldim.dto.PermissionRoleDto;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
 public class PermissionRequest {
     private Long id;
-    @NotNull(message = "Permission name cannot be null!")
-    @NotBlank(message = "Permission name cannot be blank!")
+    @NotEmpty(message = "Permission name cannot be blank!")
     private String name;
+    @NotEmpty(message = "Permission description cannot be blank!")
     private String description;
-    private RoleDto role;
+    private PermissionRoleDto role;
 }

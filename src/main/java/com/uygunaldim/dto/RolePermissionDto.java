@@ -8,22 +8,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class PermissionDto {
+public class RolePermissionDto {
     private Long id;
     private String name;
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private PermissionRoleDto role;
 
-    public static PermissionDto of(Permission permission) {
-        return PermissionDto.builder()
+    public static RolePermissionDto of(Permission permission) {
+        return RolePermissionDto.builder()
                 .id(permission.getId())
                 .name(permission.getName())
                 .description(permission.getDescription())
                 .createdAt(permission.getCreatedAt())
                 .updatedAt(permission.getUpdatedAt())
-                .role(PermissionRoleDto.of(permission.getRole()))
                 .build();
     }
 }

@@ -1,6 +1,8 @@
 package com.uygunaldim.entity;
 
+import com.uygunaldim.dto.PermissionRoleDto;
 import com.uygunaldim.dto.RoleDto;
+import com.uygunaldim.dto.UserRoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +43,25 @@ public class Role {
                 .users(roleDto.getUsers().stream().map(User::of).toList())
                 .createdAt(roleDto.getCreatedAt())
                 .updatedAt(roleDto.getUpdatedAt())
+                .build();
+    }
+
+    public static Role of(UserRoleDto userRoleDto) {
+        return Role.builder()
+                .id(userRoleDto.getId())
+                .name(userRoleDto.getName())
+                .permissions(userRoleDto.getPermissions().stream().map(Permission::of).toList())
+                .createdAt(userRoleDto.getCreatedAt())
+                .updatedAt(userRoleDto.getUpdatedAt())
+                .build();
+    }
+
+    public static Role of(PermissionRoleDto permissionRoleDto) {
+        return Role.builder()
+                .id(permissionRoleDto.getId())
+                .name(permissionRoleDto.getName())
+                .createdAt(permissionRoleDto.getCreatedAt())
+                .updatedAt(permissionRoleDto.getUpdatedAt())
                 .build();
     }
 }

@@ -1,19 +1,17 @@
 package com.uygunaldim.dto.request;
 
-import com.uygunaldim.dto.ProductDto;
+import com.uygunaldim.dto.MarketProductDto;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
 @Builder
 public class MarketRequest {
     private Long id;
-    @NotNull(message = "Market name cannot be null!")
-    @NotBlank(message = "Market name cannot be blank!")
+    @NotEmpty(message = "Market name cannot be empty!")
     private String name;
-    private List<ProductDto> products;
+    private List<MarketProductDto> products;
 }

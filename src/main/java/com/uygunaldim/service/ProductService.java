@@ -2,11 +2,11 @@ package com.uygunaldim.service;
 
 import com.uygunaldim.dto.ProductDto;
 import com.uygunaldim.dto.request.ProductRequest;
-import com.uygunaldim.entity.Market;
 import com.uygunaldim.entity.Product;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +15,11 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final MarketService marketService;
 
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll().stream().map(ProductDto::of).toList();
@@ -38,18 +36,20 @@ public class ProductService {
 
     public ProductDto updateProduct(ProductRequest request) {
         Product product = findProductById(request.getId());
+        product.setId(request.getId());
         product.setQuantity(request.getQuantity());
         product.setName(request.getName());
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
-        product.setMarket(Market.of(request.getMarket()));
+        product.setMarket(marketService.getMarketIfExistsOrCreate(request));
         product.setUpdatedAt(LocalDateTime.now());
         return ProductDto.of(productRepository.save(product));
     }
 
     public ProductDto createProduct(ProductRequest request) {
-        if (isProductExists(request)) {
-            throw new AlreadyExistsException("UYGNALDM-PRODUCT-400", "Product already exists with name: " + request.getName());
+        if (isProductExistsByNameAndMarket(request)) {
+            throw new AlreadyExistsException("UYGNALDM-PRODUCT-400", "Product already exists with name: "
+                    + request.getName() + " and market: " + request.getMarket().getName());
         }
 
         return ProductDto.of(
@@ -60,7 +60,7 @@ public class ProductService {
                         .price(request.getPrice())
                         .createdAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
-                        .market(Market.of(request.getMarket()))
+                        .market(marketService.getMarketIfExistsOrCreate(request))
                         .build())
         );
     }
@@ -71,7 +71,7 @@ public class ProductService {
         return "Product with name: " + product.getName() + " is deleted!";
     }
 
-    private boolean isProductExists(ProductRequest request) {
-        return productRepository.existsByNameAndMarket(request.getName(), Market.of(request.getMarket()));
+    private boolean isProductExistsByNameAndMarket(ProductRequest request) {
+        return productRepository.existsByNameAndMarketName(request.getName(), request.getMarket().getName());
     }
 }

@@ -1,6 +1,7 @@
 package com.uygunaldim.entity;
 
 import com.uygunaldim.dto.MarketDto;
+import com.uygunaldim.dto.ProductMarketDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +38,15 @@ public class Market {
                 .createdAt(marketDto.getCreatedAt())
                 .updatedAt(marketDto.getUpdatedAt())
                 .products(marketDto.getProducts().stream().map(Product::of).toList())
+                .build();
+    }
+
+    public static Market of(ProductMarketDto productMarketDto) {
+        return Market.builder()
+                .id(productMarketDto.getId())
+                .name(productMarketDto.getName())
+                .createdAt(productMarketDto.getCreatedAt())
+                .updatedAt(productMarketDto.getUpdatedAt())
                 .build();
     }
 }

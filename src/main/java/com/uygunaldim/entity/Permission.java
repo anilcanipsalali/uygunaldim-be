@@ -1,6 +1,7 @@
 package com.uygunaldim.entity;
 
 import com.uygunaldim.dto.PermissionDto;
+import com.uygunaldim.dto.RolePermissionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +41,16 @@ public class Permission {
                 .role(Role.of(permissionDto.getRole()))
                 .createdAt(permissionDto.getCreatedAt())
                 .updatedAt(permissionDto.getUpdatedAt())
+                .build();
+    }
+
+    public static Permission of(RolePermissionDto rolePermissionDto) {
+        return Permission.builder()
+                .id(rolePermissionDto.getId())
+                .name(rolePermissionDto.getName())
+                .description(rolePermissionDto.getDescription())
+                .createdAt(rolePermissionDto.getCreatedAt())
+                .updatedAt(rolePermissionDto.getUpdatedAt())
                 .build();
     }
 }
