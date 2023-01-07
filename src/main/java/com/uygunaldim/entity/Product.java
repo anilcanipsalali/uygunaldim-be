@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -37,6 +38,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market_id", referencedColumnName = "id")
     private Market market;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductLog> productLogs;
 
     public static Product of(ProductDto productDto) {
         return Product.builder()

@@ -3,8 +3,10 @@ package com.uygunaldim.service;
 import com.uygunaldim.dto.ProductDto;
 import com.uygunaldim.dto.request.ProductRequest;
 import com.uygunaldim.entity.Product;
+import com.uygunaldim.entity.ProductLog;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
+import com.uygunaldim.repository.ProductLogRepository;
 import com.uygunaldim.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductLogRepository productLogRepository;
     private final MarketService marketService;
 
     public List<ProductDto> getAllProducts() {
@@ -43,7 +46,10 @@ public class ProductService {
         product.setPrice(request.getPrice());
         product.setMarket(marketService.getMarketIfExistsOrCreate(request));
         product.setUpdatedAt(LocalDateTime.now());
-        return ProductDto.of(productRepository.save(product));
+        return ProductDto.of(productLogRepository.save(ProductLog.builder()
+                        .product(productRepository.save(product))
+                        .createdAt(LocalDateTime.now())
+                        .build()).getProduct());
     }
 
     public ProductDto createProduct(ProductRequest request) {
@@ -52,17 +58,20 @@ public class ProductService {
                     + request.getName() + " and market: " + request.getMarket().getName());
         }
 
-        return ProductDto.of(
-                productRepository.save(Product.builder()
-                        .quantity(request.getQuantity())
-                        .name(request.getName())
-                        .weight(request.getWeight())
-                        .price(request.getPrice())
+        Product product = productLogRepository.save(ProductLog.builder()
+                        .product(productRepository.save(Product.builder()
+                                    .quantity(request.getQuantity())
+                                    .name(request.getName())
+                                    .weight(request.getWeight())
+                                    .price(request.getPrice())
+                                    .createdAt(LocalDateTime.now())
+                                    .updatedAt(LocalDateTime.now())
+                                    .market(marketService.getMarketIfExistsOrCreate(request))
+                                    .build()))
                         .createdAt(LocalDateTime.now())
-                        .updatedAt(LocalDateTime.now())
-                        .market(marketService.getMarketIfExistsOrCreate(request))
-                        .build())
-        );
+                        .build()).getProduct();
+
+        return ProductDto.of(product);
     }
 
     public String deleteProduct(Long id) {
