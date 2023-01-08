@@ -40,6 +40,7 @@ public class ProductService {
         Product product = findProductById(request.getId());
         product.setQuantity(request.getQuantity());
         product.setName(request.getName());
+        product.setVendor(request.getVendor());
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
         product.setMarket(marketService.getMarketIfExistsOrCreate(request));
@@ -58,6 +59,7 @@ public class ProductService {
                 productRepository.save(Product.builder()
                     .quantity(request.getQuantity())
                     .name(request.getName())
+                    .vendor(request.getVendor())
                     .weight(request.getWeight())
                     .price(request.getPrice())
                     .createdAt(LocalDateTime.now())

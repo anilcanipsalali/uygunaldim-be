@@ -24,6 +24,8 @@ public class Product {
     private Integer quantity;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "VENDOR")
+    private String vendor;
     @Column(name = "WEIGHT")
     private BigDecimal weight;
     @Column(name = "PRICE")
@@ -41,6 +43,7 @@ public class Product {
                 .id(productDto.getId())
                 .quantity(productDto.getQuantity())
                 .name(productDto.getName())
+                .vendor(productDto.getVendor())
                 .weight(productDto.getWeight())
                 .price(productDto.getPrice())
                 .createdAt(productDto.getCreatedAt())
@@ -54,6 +57,7 @@ public class Product {
                 .id(marketProductDto.getId())
                 .quantity(marketProductDto.getQuantity())
                 .name(marketProductDto.getName())
+                .vendor(marketProductDto.getVendor())
                 .weight(marketProductDto.getWeight())
                 .price(marketProductDto.getPrice())
                 .createdAt(marketProductDto.getCreatedAt())

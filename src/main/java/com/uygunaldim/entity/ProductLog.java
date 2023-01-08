@@ -27,6 +27,8 @@ public class ProductLog {
     private Integer quantity;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "VENDOR")
+    private String vendor;
     @Column(name = "WEIGHT")
     private BigDecimal weight;
     @Column(name = "PRICE")

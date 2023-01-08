@@ -12,6 +12,7 @@ public class MarketProductDto {
     private Long id;
     private Integer quantity;
     private String name;
+    private String vendor;
     private BigDecimal weight;
     private BigDecimal price;
     private LocalDateTime createdAt;
@@ -22,6 +23,7 @@ public class MarketProductDto {
                 .id(product.getId())
                 .quantity(product.getQuantity())
                 .name(product.getName())
+                .vendor(product.getVendor())
                 .weight(product.getWeight())
                 .price(product.getPrice())
                 .createdAt(product.getCreatedAt())

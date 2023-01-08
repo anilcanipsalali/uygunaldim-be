@@ -16,6 +16,8 @@ public class ProductRequest {
     private Integer quantity;
     @NotEmpty(message = "Product name cannot be blank!")
     private String name;
+    @NotEmpty(message = "Product vendor cannot be blank!")
+    private String vendor;
     @NotNull(message = "Product weight cannot be blank!")
     private BigDecimal weight;
     @NotNull(message = "Product price cannot be blank!")

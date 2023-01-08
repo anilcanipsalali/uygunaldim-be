@@ -31,6 +31,7 @@ public class ProductLogService {
                         .productId(product.getId())
                         .quantity(product.getQuantity())
                         .name(product.getName())
+                        .vendor(product.getVendor())
                         .weight(product.getWeight())
                         .price(product.getPrice())
                         .market(product.getMarket().getName())
