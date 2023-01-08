@@ -23,18 +23,18 @@ public class ProductLog {
     private Long id;
     @Column(name = "PRODUCT_ID")
     private Long productId;
-    @Column(name = "QUANTITY")
-    private Integer quantity;
     @Column(name = "VENDOR")
     private String vendor;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "TYPE")
-    private String type;
+    @Column(name = "CATEGORY")
+    private String category;
     @Column(name = "WEIGHT")
     private BigDecimal weight;
     @Column(name = "PRICE")
     private BigDecimal price;
+    @Column(name = "LOGO")
+    private String logo;
     @Column(name = "MARKET")
     private String market;
     @Column(name = "CREATED_AT")

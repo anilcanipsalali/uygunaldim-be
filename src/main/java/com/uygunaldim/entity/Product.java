@@ -20,18 +20,18 @@ public class Product {
     @SequenceGenerator(name = "seqProductId", sequenceName = "seq_product_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqProductId")
     private Long id;
-    @Column(name = "QUANTITY")
-    private Integer quantity;
     @Column(name = "VENDOR")
     private String vendor;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "TYPE")
-    private String type;
+    @Column(name = "CATEGORY")
+    private String category;
     @Column(name = "WEIGHT")
     private BigDecimal weight;
     @Column(name = "PRICE")
     private BigDecimal price;
+    @Column(name = "LOGO")
+    private String logo;
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
@@ -43,12 +43,12 @@ public class Product {
     public static Product of(ProductDto productDto) {
         return Product.builder()
                 .id(productDto.getId())
-                .quantity(productDto.getQuantity())
                 .vendor(productDto.getVendor())
                 .name(productDto.getName())
-                .type(productDto.getType())
+                .category(productDto.getCategory())
                 .weight(productDto.getWeight())
                 .price(productDto.getPrice())
+                .logo(productDto.getLogo())
                 .createdAt(productDto.getCreatedAt())
                 .updatedAt(productDto.getUpdatedAt())
                 .market(Market.of(productDto.getMarket()))
@@ -58,12 +58,12 @@ public class Product {
     public static Product of(MarketProductDto marketProductDto) {
         return Product.builder()
                 .id(marketProductDto.getId())
-                .quantity(marketProductDto.getQuantity())
                 .vendor(marketProductDto.getVendor())
                 .name(marketProductDto.getName())
-                .type(marketProductDto.getType())
+                .category(marketProductDto.getCategory())
                 .weight(marketProductDto.getWeight())
                 .price(marketProductDto.getPrice())
+                .logo(marketProductDto.getLogo())
                 .createdAt(marketProductDto.getCreatedAt())
                 .updatedAt(marketProductDto.getUpdatedAt())
                 .build();

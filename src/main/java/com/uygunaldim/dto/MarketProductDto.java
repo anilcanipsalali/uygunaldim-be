@@ -10,24 +10,24 @@ import java.time.LocalDateTime;
 @Builder
 public class MarketProductDto {
     private Long id;
-    private Integer quantity;
     private String vendor;
     private String name;
-    private String type;
+    private String category;
     private BigDecimal weight;
     private BigDecimal price;
+    private String logo;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public static MarketProductDto of(Product product) {
         return MarketProductDto.builder()
                 .id(product.getId())
-                .quantity(product.getQuantity())
                 .vendor(product.getVendor())
                 .name(product.getName())
-                .type(product.getType())
+                .category(product.getCategory())
                 .weight(product.getWeight())
                 .price(product.getPrice())
+                .logo(product.getLogo())
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
                 .build();

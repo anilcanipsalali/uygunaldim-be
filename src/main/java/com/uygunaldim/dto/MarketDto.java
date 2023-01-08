@@ -12,6 +12,7 @@ import java.util.List;
 public class MarketDto {
     private Long id;
     private String name;
+    private String logo;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MarketProductDto> products;
@@ -20,6 +21,7 @@ public class MarketDto {
         return MarketDto.builder()
                 .id(market.getId())
                 .name(market.getName())
+                .logo(market.getLogo())
                 .createdAt(market.getCreatedAt())
                 .updatedAt(market.getUpdatedAt())
                 .products(market.getProducts().stream().map(MarketProductDto::of).toList())

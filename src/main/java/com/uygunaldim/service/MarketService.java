@@ -2,7 +2,6 @@ package com.uygunaldim.service;
 
 import com.uygunaldim.dto.MarketDto;
 import com.uygunaldim.dto.request.MarketRequest;
-import com.uygunaldim.dto.request.ProductRequest;
 import com.uygunaldim.entity.Market;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
@@ -48,6 +47,7 @@ public class MarketService {
         Market market = findMarketById(request.getId());
         market.setId(request.getId());
         market.setName(request.getName());
+        market.setLogo(request.getLogo());
         market.setUpdatedAt(LocalDateTime.now());
         return MarketDto.of(marketRepository.save(market));
     }
@@ -59,18 +59,19 @@ public class MarketService {
 
         return MarketDto.of(marketRepository.save(Market.builder()
                 .name(request.getName())
+                .logo(request.getLogo())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .products(Collections.emptyList())
                 .build()));
     }
 
-    public Market getMarketIfExistsOrCreate(ProductRequest request) {
-        if (isMarketExistsByName(request.getMarket().getName())) {
-            return findMarketByName(request.getMarket().getName());
+    public Market getMarketIfExistsOrCreate(String name) {
+        if (isMarketExistsByName(name)) {
+            return findMarketByName(name);
         } else {
             return Market.of(createMarket(MarketRequest.builder()
-                    .name(request.getMarket().getName())
+                    .name(name)
                     .build()));
         }
     }

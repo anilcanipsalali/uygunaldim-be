@@ -24,6 +24,8 @@ public class Market {
     private Long id;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "LOGO")
+    private String logo;
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
     @Column(name = "UPDATED_AT")
@@ -35,6 +37,7 @@ public class Market {
         return Market.builder()
                 .id(marketDto.getId())
                 .name(marketDto.getName())
+                .logo(marketDto.getLogo())
                 .createdAt(marketDto.getCreatedAt())
                 .updatedAt(marketDto.getUpdatedAt())
                 .products(marketDto.getProducts().stream().map(Product::of).toList())
@@ -45,6 +48,7 @@ public class Market {
         return Market.builder()
                 .id(productMarketDto.getId())
                 .name(productMarketDto.getName())
+                .logo(productMarketDto.getLogo())
                 .createdAt(productMarketDto.getCreatedAt())
                 .updatedAt(productMarketDto.getUpdatedAt())
                 .build();

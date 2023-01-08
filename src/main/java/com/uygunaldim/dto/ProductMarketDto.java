@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class ProductMarketDto {
     private Long id;
     private String name;
+    private String logo;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -18,6 +19,7 @@ public class ProductMarketDto {
         return ProductMarketDto.builder()
                 .id(market.getId())
                 .name(market.getName())
+                .logo(market.getLogo())
                 .createdAt(market.getCreatedAt())
                 .updatedAt(market.getUpdatedAt())
                 .build();

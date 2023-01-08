@@ -38,13 +38,13 @@ public class ProductService {
 
     public ProductDto updateProduct(ProductRequest request) {
         Product product = findProductById(request.getId());
-        product.setQuantity(request.getQuantity());
         product.setVendor(request.getVendor());
         product.setName(request.getName());
-        product.setType(request.getType());
+        product.setCategory(request.getCategory());
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
-        product.setMarket(marketService.getMarketIfExistsOrCreate(request));
+        product.setLogo(request.getLogo());
+        product.setMarket(marketService.getMarketIfExistsOrCreate(request.getMarket().getName()));
         product.setUpdatedAt(LocalDateTime.now());
 
         return ProductDto.of(productLogService.log(productRepository.save(product), OperationEnum.UPDATE));
@@ -58,15 +58,15 @@ public class ProductService {
 
         Product product = productLogService.log(
                 productRepository.save(Product.builder()
-                    .quantity(request.getQuantity())
                     .vendor(request.getVendor())
                     .name(request.getName())
-                    .type(request.getType())
+                    .category(request.getCategory())
                     .weight(request.getWeight())
                     .price(request.getPrice())
+                    .logo(request.getLogo())
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
-                    .market(marketService.getMarketIfExistsOrCreate(request))
+                    .market(marketService.getMarketIfExistsOrCreate(request.getMarket().getName()))
                     .build()), OperationEnum.CREATE
                 );
 

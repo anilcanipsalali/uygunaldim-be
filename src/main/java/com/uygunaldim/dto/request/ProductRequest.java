@@ -12,18 +12,18 @@ import java.math.BigDecimal;
 @Builder
 public class ProductRequest {
     private Long id;
-    @NotNull(message = "Product quantity cannot be blank!")
-    private Integer quantity;
     @NotEmpty(message = "Product vendor cannot be blank!")
     private String vendor;
     @NotEmpty(message = "Product name cannot be blank!")
     private String name;
-    @NotEmpty(message = "Product type cannot be blank!")
-    private String type;
+    @NotEmpty(message = "Product category cannot be blank!")
+    private String category;
     @NotNull(message = "Product weight cannot be blank!")
     private BigDecimal weight;
     @NotNull(message = "Product price cannot be blank!")
     private BigDecimal price;
+    @NotEmpty(message = "Product logo cannot be blank!")
+    private String logo;
     @NotNull(message = "Product market cannot be blank!")
     private ProductMarketDto market;
 }
