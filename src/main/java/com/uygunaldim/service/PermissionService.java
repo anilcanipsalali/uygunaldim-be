@@ -7,6 +7,7 @@ import com.uygunaldim.entity.Role;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.PermissionRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,10 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PermissionService {
-    private final PermissionRepository permissionRepository;
 
-    public PermissionService(PermissionRepository permissionRepository) {
-        this.permissionRepository = permissionRepository;
-    }
+    private final PermissionRepository permissionRepository;
 
     public List<PermissionDto> getAllPermissions() {
         return permissionRepository.findAll().stream().map(PermissionDto::of).toList();
