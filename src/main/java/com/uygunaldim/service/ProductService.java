@@ -59,8 +59,9 @@ public class ProductService {
         Product product = productLogService.log(
                 productRepository.save(Product.builder()
                     .quantity(request.getQuantity())
-                    .name(request.getName())
                     .vendor(request.getVendor())
+                    .name(request.getName())
+                    .type(request.getType())
                     .weight(request.getWeight())
                     .price(request.getPrice())
                     .createdAt(LocalDateTime.now())
