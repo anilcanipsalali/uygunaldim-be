@@ -25,10 +25,12 @@ public class ProductLog {
     private Long productId;
     @Column(name = "QUANTITY")
     private Integer quantity;
-    @Column(name = "NAME")
-    private String name;
     @Column(name = "VENDOR")
     private String vendor;
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "TYPE")
+    private String type;
     @Column(name = "WEIGHT")
     private BigDecimal weight;
     @Column(name = "PRICE")

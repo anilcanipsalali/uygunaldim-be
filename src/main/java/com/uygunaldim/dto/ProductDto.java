@@ -12,8 +12,9 @@ import java.time.LocalDateTime;
 public class ProductDto {
     private Long id;
     private Integer quantity;
-    private String name;
     private String vendor;
+    private String name;
+    private String type;
     private BigDecimal weight;
     private BigDecimal price;
     private LocalDateTime createdAt;
@@ -24,8 +25,9 @@ public class ProductDto {
         return ProductDto.builder()
                 .id(product.getId())
                 .quantity(product.getQuantity())
-                .name(product.getName())
                 .vendor(product.getVendor())
+                .name(product.getName())
+                .type(product.getType())
                 .weight(product.getWeight())
                 .price(product.getPrice())
                 .createdAt(product.getCreatedAt())

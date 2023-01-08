@@ -39,8 +39,9 @@ public class ProductService {
     public ProductDto updateProduct(ProductRequest request) {
         Product product = findProductById(request.getId());
         product.setQuantity(request.getQuantity());
-        product.setName(request.getName());
         product.setVendor(request.getVendor());
+        product.setName(request.getName());
+        product.setType(request.getType());
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
         product.setMarket(marketService.getMarketIfExistsOrCreate(request));
