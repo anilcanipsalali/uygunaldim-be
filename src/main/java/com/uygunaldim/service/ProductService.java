@@ -24,7 +24,11 @@ public class ProductService {
     private final MarketService marketService;
 
     public List<ProductDto> getAllProducts() {
-        return productRepository.findAll().stream().map(ProductDto::of).toList();
+        return productRepository.findAllByOrderByPriceAsc().stream().map(ProductDto::of).toList();
+    }
+
+    public List<ProductDto> getAllProductsByCategory(String category) {
+        return productRepository.findAllByCategoryOrderByPriceAsc(category).stream().map(ProductDto::of).toList();
     }
 
     public ProductDto getProductById(Long id) {
