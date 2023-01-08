@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,9 +21,18 @@ public class ProductLog {
     @SequenceGenerator(name = "seqProductLogId", sequenceName = "seq_product_log_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqProductLogId")
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_log_id", referencedColumnName = "id")
-    private Product product;
+    @Column(name = "PRODUCT_ID")
+    private Long productId;
+    @Column(name = "QUANTITY")
+    private Integer quantity;
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "WEIGHT")
+    private BigDecimal weight;
+    @Column(name = "PRICE")
+    private BigDecimal price;
+    @Column(name = "MARKET")
+    private String market;
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
     @Column(name = "OPERATION")

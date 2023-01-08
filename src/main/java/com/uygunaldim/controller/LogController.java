@@ -1,6 +1,6 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.dto.ProductLogDto;
+import com.uygunaldim.entity.ProductLog;
 import com.uygunaldim.service.ProductLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class LogController {
     private final ProductLogService productLogService;
 
     @GetMapping("/product")
-    public ResponseEntity<List<ProductLogDto>> getAllProductsLog() {
+    public ResponseEntity<List<ProductLog>> getAllProductsLog() {
         return ResponseEntity.ok(productLogService.getAllProductsLog());
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<List<ProductLogDto>> getProductLogById(@PathVariable Long id) {
+    public ResponseEntity<List<ProductLog>> getProductLogById(@PathVariable Long id) {
         return ResponseEntity.ok(productLogService.getAllProductLogById(id));
     }
 }

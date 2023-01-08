@@ -1,12 +1,14 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.ProductLogDto;
+import com.uygunaldim.entity.Product;
 import com.uygunaldim.entity.ProductLog;
+import com.uygunaldim.entity.enums.OperationEnum;
 import com.uygunaldim.repository.ProductLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,12 +18,26 @@ public class ProductLogService {
 
     private final ProductLogRepository productLogRepository;
 
-    public List<ProductLogDto> getAllProductsLog() {
-        return productLogRepository.findAll().stream().map(ProductLogDto::of).toList();
+    public List<ProductLog> getAllProductsLog() {
+        return productLogRepository.findAll();
     }
 
-    public List<ProductLogDto> getAllProductLogById(Long id) {
-        return findAllProductLogById(id).stream().map(ProductLogDto::of).toList();
+    public List<ProductLog> getAllProductLogById(Long id) {
+        return findAllProductLogById(id);
+    }
+
+    public Product log(Product product, OperationEnum operation) {
+        productLogRepository.save(ProductLog.builder()
+                        .productId(product.getId())
+                        .quantity(product.getQuantity())
+                        .name(product.getName())
+                        .weight(product.getWeight())
+                        .price(product.getPrice())
+                        .market(product.getMarket().getName())
+                        .createdAt(LocalDateTime.now())
+                        .operation(operation)
+                        .build());
+        return product;
     }
 
     protected List<ProductLog> findAllProductLogById(Long id) {

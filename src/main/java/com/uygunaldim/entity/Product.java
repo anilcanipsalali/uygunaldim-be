@@ -2,13 +2,11 @@ package com.uygunaldim.entity;
 
 import com.uygunaldim.dto.MarketProductDto;
 import com.uygunaldim.dto.ProductDto;
-import com.uygunaldim.dto.ProductLogDto;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -37,8 +35,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "market_id", referencedColumnName = "id")
     private Market market;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductLog> productLogs;
 
     public static Product of(ProductDto productDto) {
         return Product.builder()
@@ -50,19 +46,6 @@ public class Product {
                 .createdAt(productDto.getCreatedAt())
                 .updatedAt(productDto.getUpdatedAt())
                 .market(Market.of(productDto.getMarket()))
-                .build();
-    }
-
-    public static Product of(ProductLogDto productLogDto) {
-        return Product.builder()
-                .id(productLogDto.getProduct().getId())
-                .quantity(productLogDto.getProduct().getQuantity())
-                .name(productLogDto.getProduct().getName())
-                .weight(productLogDto.getProduct().getWeight())
-                .price(productLogDto.getProduct().getPrice())
-                .createdAt(productLogDto.getProduct().getCreatedAt())
-                .updatedAt(productLogDto.getProduct().getUpdatedAt())
-                .market(Market.of(productLogDto.getProduct().getMarket()))
                 .build();
     }
 
