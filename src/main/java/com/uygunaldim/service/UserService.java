@@ -34,6 +34,11 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by id: " + id));
     }
 
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by username: " + username));
+    }
+
     public UserDto updateUser(UserRequest request) {
         User user = findUserById(request.getId());
         user.setEmail(request.getEmail());
