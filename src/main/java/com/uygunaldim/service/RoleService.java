@@ -1,10 +1,10 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.RoleDto;
-import com.uygunaldim.dto.request.RoleRequest;
-import com.uygunaldim.entity.Permission;
-import com.uygunaldim.entity.Role;
-import com.uygunaldim.entity.User;
+import com.uygunaldim.data.dto.RoleDto;
+import com.uygunaldim.data.dto.request.RoleRequest;
+import com.uygunaldim.data.entity.Permission;
+import com.uygunaldim.data.entity.Role;
+import com.uygunaldim.data.entity.User;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.RoleRepository;
@@ -61,9 +61,9 @@ public class RoleService {
     }
 
     public String deleteRole(Long id) {
-        Role role = findRoleById(id);
+        String name = findRoleById(id).getName();
         roleRepository.deleteById(id);
-        return "Role with name: " + role.getName() + " is deleted!";
+        return "Role with name: " + name + " is deleted!";
     }
 
     private boolean isRoleExists(RoleRequest request) {

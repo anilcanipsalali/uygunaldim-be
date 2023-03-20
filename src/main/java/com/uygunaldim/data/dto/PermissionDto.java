@@ -1,6 +1,6 @@
-package com.uygunaldim.dto;
+package com.uygunaldim.data.dto;
 
-import com.uygunaldim.entity.Permission;
+import com.uygunaldim.data.entity.Permission;
 import lombok.Builder;
 import lombok.Data;
 

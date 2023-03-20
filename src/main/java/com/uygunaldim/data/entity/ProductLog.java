@@ -1,6 +1,6 @@
-package com.uygunaldim.entity;
+package com.uygunaldim.data.entity;
 
-import com.uygunaldim.entity.enums.OperationEnum;
+import com.uygunaldim.data.entity.enums.OperationEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

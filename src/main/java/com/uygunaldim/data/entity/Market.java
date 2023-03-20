@@ -1,7 +1,7 @@
-package com.uygunaldim.entity;
+package com.uygunaldim.data.entity;
 
-import com.uygunaldim.dto.MarketDto;
-import com.uygunaldim.dto.ProductMarketDto;
+import com.uygunaldim.data.dto.MarketDto;
+import com.uygunaldim.data.dto.ProductMarketDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

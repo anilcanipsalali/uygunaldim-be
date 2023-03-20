@@ -1,7 +1,7 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.dto.RoleDto;
-import com.uygunaldim.dto.request.RoleRequest;
+import com.uygunaldim.data.dto.RoleDto;
+import com.uygunaldim.data.dto.request.RoleRequest;
 import com.uygunaldim.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

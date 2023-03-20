@@ -1,11 +1,12 @@
-package com.uygunaldim.dto;
+package com.uygunaldim.data.dto;
 
-import com.uygunaldim.entity.Product;
+import com.uygunaldim.data.entity.Product;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,6 +21,7 @@ public class ProductDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private ProductMarketDto market;
+    private List<ProductReviewDto> reviews;
 
     public static ProductDto of(Product product) {
         return ProductDto.builder()
@@ -33,6 +35,7 @@ public class ProductDto {
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
                 .market(ProductMarketDto.of(product.getMarket()))
+                .reviews(product.getReviews().stream().map(ProductReviewDto::of).toList())
                 .build();
     }
 }

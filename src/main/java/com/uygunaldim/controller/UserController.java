@@ -1,7 +1,7 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.dto.UserDto;
-import com.uygunaldim.dto.request.UserRequest;
+import com.uygunaldim.data.dto.UserDto;
+import com.uygunaldim.data.dto.request.UserRequest;
 import com.uygunaldim.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

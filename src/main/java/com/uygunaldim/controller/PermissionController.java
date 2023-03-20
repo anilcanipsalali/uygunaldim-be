@@ -1,7 +1,7 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.dto.PermissionDto;
-import com.uygunaldim.dto.request.PermissionRequest;
+import com.uygunaldim.data.dto.PermissionDto;
+import com.uygunaldim.data.dto.request.PermissionRequest;
 import com.uygunaldim.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

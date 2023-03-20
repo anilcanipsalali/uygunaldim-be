@@ -1,9 +1,9 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.ProductDto;
-import com.uygunaldim.dto.request.ProductRequest;
-import com.uygunaldim.entity.Product;
-import com.uygunaldim.entity.enums.OperationEnum;
+import com.uygunaldim.data.dto.ProductDto;
+import com.uygunaldim.data.dto.request.ProductRequest;
+import com.uygunaldim.data.entity.Product;
+import com.uygunaldim.data.entity.enums.OperationEnum;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.ProductRepository;
@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -71,6 +72,7 @@ public class ProductService {
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
                     .market(marketService.getMarketIfExistsOrCreate(request.getMarket().getName()))
+                    .reviews(Collections.emptyList())
                     .build()), OperationEnum.CREATE
                 );
 

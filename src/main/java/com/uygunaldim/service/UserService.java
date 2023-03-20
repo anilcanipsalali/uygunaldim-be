@@ -1,9 +1,9 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.UserDto;
-import com.uygunaldim.dto.request.UserRequest;
-import com.uygunaldim.entity.Role;
-import com.uygunaldim.entity.User;
+import com.uygunaldim.data.dto.UserDto;
+import com.uygunaldim.data.dto.request.UserRequest;
+import com.uygunaldim.data.entity.Role;
+import com.uygunaldim.data.entity.User;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.UserRepository;
@@ -66,9 +66,9 @@ public class UserService {
     }
 
     public String deleteUser(Long id) {
-        User user = findUserById(id);
+        String username = findUserById(id).getUsername();
         userRepository.deleteById(id);
-        return "User with username: " + user.getUsername() + " is deleted!";
+        return "User with username: " + username + " is deleted!";
     }
 
     private boolean isUserExistsWithUsername(UserRequest request) {

@@ -1,7 +1,7 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.dto.MarketDto;
-import com.uygunaldim.dto.request.MarketRequest;
+import com.uygunaldim.data.dto.MarketDto;
+import com.uygunaldim.data.dto.request.MarketRequest;
 import com.uygunaldim.service.MarketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

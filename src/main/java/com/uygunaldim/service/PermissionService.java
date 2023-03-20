@@ -1,9 +1,9 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.PermissionDto;
-import com.uygunaldim.dto.request.PermissionRequest;
-import com.uygunaldim.entity.Permission;
-import com.uygunaldim.entity.Role;
+import com.uygunaldim.data.dto.PermissionDto;
+import com.uygunaldim.data.dto.request.PermissionRequest;
+import com.uygunaldim.data.entity.Permission;
+import com.uygunaldim.data.entity.Role;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.PermissionRepository;
@@ -60,9 +60,9 @@ public class PermissionService {
     }
 
     public String deletePermission(Long id) {
-        Permission permission = findPermissionById(id);
+        String name = findPermissionById(id).getName();
         permissionRepository.deleteById(id);
-        return "Permission with name: " + permission.getName() + " is deleted!";
+        return "Permission with name: " + name + " is deleted!";
     }
 
     private boolean isPermissionExists(PermissionRequest request) {

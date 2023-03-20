@@ -1,6 +1,6 @@
 package com.uygunaldim.controller;
 
-import com.uygunaldim.entity.ProductLog;
+import com.uygunaldim.data.entity.ProductLog;
 import com.uygunaldim.service.ProductLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

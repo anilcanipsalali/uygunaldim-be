@@ -1,8 +1,8 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.dto.MarketDto;
-import com.uygunaldim.dto.request.MarketRequest;
-import com.uygunaldim.entity.Market;
+import com.uygunaldim.data.dto.MarketDto;
+import com.uygunaldim.data.dto.request.MarketRequest;
+import com.uygunaldim.data.entity.Market;
 import com.uygunaldim.exception.AlreadyExistsException;
 import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.MarketRepository;
@@ -77,9 +77,9 @@ public class MarketService {
     }
 
     public String deleteMarket(Long id) {
-        Market market = findMarketById(id);
+        String name = findMarketById(id).getName();
         marketRepository.deleteById(id);
-        return "Market with name: " + market.getName() + " is deleted!";
+        return "Market with name: " + name + " is deleted!";
     }
 
     private boolean isMarketExistsByName(String name) {

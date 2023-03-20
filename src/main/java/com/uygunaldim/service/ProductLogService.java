@@ -1,8 +1,8 @@
 package com.uygunaldim.service;
 
-import com.uygunaldim.entity.Product;
-import com.uygunaldim.entity.ProductLog;
-import com.uygunaldim.entity.enums.OperationEnum;
+import com.uygunaldim.data.entity.Product;
+import com.uygunaldim.data.entity.ProductLog;
+import com.uygunaldim.data.entity.enums.OperationEnum;
 import com.uygunaldim.repository.ProductLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

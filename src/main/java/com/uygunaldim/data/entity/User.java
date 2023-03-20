@@ -1,7 +1,7 @@
-package com.uygunaldim.entity;
+package com.uygunaldim.data.entity;
 
-import com.uygunaldim.dto.RoleUserDto;
-import com.uygunaldim.dto.UserDto;
+import com.uygunaldim.data.dto.RoleUserDto;
+import com.uygunaldim.data.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

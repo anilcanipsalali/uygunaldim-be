@@ -1,6 +1,6 @@
-package com.uygunaldim.dto.request;
+package com.uygunaldim.data.dto.request;
 
-import com.uygunaldim.dto.UserRoleDto;
+import com.uygunaldim.data.dto.UserRoleDto;
 import lombok.Builder;
 import lombok.Data;
 

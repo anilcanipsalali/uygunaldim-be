@@ -1,4 +1,4 @@
-package com.uygunaldim.entity.enums;
+package com.uygunaldim.data.entity.enums;
 
 public enum  OperationEnum {
     CREATE, UPDATE, DELETE;

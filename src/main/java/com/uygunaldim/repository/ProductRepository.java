@@ -1,6 +1,6 @@
 package com.uygunaldim.repository;
 
-import com.uygunaldim.entity.Product;
+import com.uygunaldim.data.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

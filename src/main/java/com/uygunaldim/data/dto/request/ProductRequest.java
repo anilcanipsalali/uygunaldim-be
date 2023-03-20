@@ -1,6 +1,6 @@
-package com.uygunaldim.dto.request;
+package com.uygunaldim.data.dto.request;
 
-import com.uygunaldim.dto.ProductMarketDto;
+import com.uygunaldim.data.dto.ProductMarketDto;
 import lombok.Builder;
 import lombok.Data;
 
