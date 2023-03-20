@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.ROLE_BAD_REQUEST;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class RoleService {
 
     protected Role findRoleById(Long id) {
         return roleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-ROLE-404", "Role could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(ROLE_BAD_REQUEST, "Role could not found by id: " + id));
     }
 
     public RoleDto updateRole(RoleRequest request) {
@@ -48,7 +50,7 @@ public class RoleService {
 
     public RoleDto createRole(RoleRequest request) {
         if (isRoleExists(request.getName())) {
-            throw new AlreadyExistsException("UYGNALDM-ROLE-400", "Role already exists with name: " + request.getName());
+            throw new AlreadyExistsException(ROLE_BAD_REQUEST, "Role already exists with name: " + request.getName());
         }
 
         return RoleDto.of(

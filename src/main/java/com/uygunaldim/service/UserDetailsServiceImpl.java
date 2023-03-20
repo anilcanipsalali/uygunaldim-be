@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import static com.uygunaldim.util.ApplicationConstants.USER_BAD_REQUEST;
+
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -17,11 +19,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return JwtUserDetails.create(userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by username: " + username)));
+                .orElseThrow(() -> new NotFoundException(USER_BAD_REQUEST, "User could not found by username: " + username)));
     }
 
     public UserDetails loadUserById(Long id) {
         return JwtUserDetails.create(userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by id: " + id)));
+                .orElseThrow(() -> new NotFoundException(USER_BAD_REQUEST, "User could not found by id: " + id)));
     }
 }

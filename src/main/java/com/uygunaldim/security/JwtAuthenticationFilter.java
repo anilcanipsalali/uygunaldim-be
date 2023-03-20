@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.uygunaldim.util.ApplicationConstants.AUTH_INTERNAL_SERVER_ERROR;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -37,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch(Exception ex) {
-            throw new InternalServerException("UYGNALDM-AUTH-500", ex.getLocalizedMessage());
+            throw new InternalServerException(AUTH_INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
         }
         filterChain.doFilter(request, response);
     }

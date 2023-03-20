@@ -3,6 +3,7 @@ package com.uygunaldim.configuration;
 import com.uygunaldim.security.JwtAuthenticationEntryPoint;
 import com.uygunaldim.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.uygunaldim.util.ApplicationConstants.DEVELOPMENT_ENVIRONMENT;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -27,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Value("${spring.profiles.active}")
+    private String environment;
 
     @Override
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -58,11 +63,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/swagger-ui/**",
-                "/swagger-ui.html",
-                "/v3/api-docs/**",
-                "/h2/**",
-                "/api/auth/login",
-                "/api/auth/register");
+        if (environment.equals(DEVELOPMENT_ENVIRONMENT)) {
+            web.ignoring().antMatchers("/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/h2/**",
+                    "/api/auth/login",
+                    "/api/auth/register");
+        }
     }
 }

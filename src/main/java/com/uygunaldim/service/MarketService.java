@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.MARKET_BAD_REQUEST;
+import static com.uygunaldim.util.ApplicationConstants.MARKET_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -31,17 +34,17 @@ public class MarketService {
 
     protected Market findMarketById(Long id) {
         return marketRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-MARKET-404", "Market could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(MARKET_NOT_FOUND, "Market could not found by id: " + id));
     }
 
     protected Market findMarketByName(String name) {
         return marketRepository.findByName(name)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-MARKET-404", "Market could not found by name: " + name));
+                .orElseThrow(() -> new NotFoundException(MARKET_NOT_FOUND, "Market could not found by name: " + name));
     }
 
     public MarketDto updateMarket(MarketRequest request) {
         if (isMarketExistsByName(request.getName())) {
-            throw new AlreadyExistsException("UYGNALDM-MARKET-400", "Market already exists with name: " + request.getName());
+            throw new AlreadyExistsException(MARKET_BAD_REQUEST, "Market already exists with name: " + request.getName());
         }
 
         Market market = findMarketById(request.getId());
@@ -54,7 +57,7 @@ public class MarketService {
 
     public MarketDto createMarket(MarketRequest request) {
         if (isMarketExistsByName(request.getName())) {
-           throw new AlreadyExistsException("UYGNALDM-MARKET-400", "Market already exists with name: " + request.getName());
+           throw new AlreadyExistsException(MARKET_BAD_REQUEST, "Market already exists with name: " + request.getName());
         }
 
         return MarketDto.of(marketRepository.save(Market.builder()

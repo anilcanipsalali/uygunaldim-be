@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.PRODUCT_BAD_REQUEST;
+import static com.uygunaldim.util.ApplicationConstants.PRODUCT_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -38,7 +41,7 @@ public class ProductService {
 
     protected Product findProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-PRODUCT-404", "Product could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND, "Product could not found by id: " + id));
     }
 
     public ProductDto updateProduct(ProductRequest request) {
@@ -57,7 +60,7 @@ public class ProductService {
 
     public ProductDto createProduct(ProductRequest request) {
         if (isProductExistsByNameAndMarket(request)) {
-            throw new AlreadyExistsException("UYGNALDM-PRODUCT-400", "Product already exists with name: "
+            throw new AlreadyExistsException(PRODUCT_BAD_REQUEST, "Product already exists with name: "
                     + request.getName() + " and market: " + request.getMarket().getName());
         }
 

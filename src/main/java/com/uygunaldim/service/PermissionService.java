@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.PERMISSION_BAD_REQUEST;
+import static com.uygunaldim.util.ApplicationConstants.PERMISSION_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -31,7 +34,7 @@ public class PermissionService {
 
     protected Permission findPermissionById(Long id) {
         return permissionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-PERMISSION-404", "Permission could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(PERMISSION_NOT_FOUND, "Permission could not found by id: " + id));
     }
 
     public PermissionDto updatePermission(PermissionRequest request) {
@@ -45,7 +48,7 @@ public class PermissionService {
 
     public PermissionDto createPermission(PermissionRequest request) {
         if (isPermissionExists(request)) {
-            throw new AlreadyExistsException("UYGNALDM-PERMISSION-400", "Permission already exists with name: " + request.getName());
+            throw new AlreadyExistsException(PERMISSION_BAD_REQUEST, "Permission already exists with name: " + request.getName());
         }
 
         return PermissionDto.of(

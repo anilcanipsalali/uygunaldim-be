@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import static com.uygunaldim.util.ApplicationConstants.AUTH_UNAUTHORIZED;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -61,7 +63,7 @@ public class AuthService {
                     .expiryDate(jwtProvider.getTokenExpiryDate(jwtToken))
                     .build();
         } else {
-            throw new AuthorizationException("UYGNALDM-AUTH-401", "Refresh token is not valid!");
+            throw new AuthorizationException(AUTH_UNAUTHORIZED, "Refresh token is not valid!");
         }
     }
 

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.REVIEW_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class ReviewService {
 
     protected Review findReviewById(Long id) {
         return reviewRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-REVIEW-404", "Review could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND, "Review could not found by id: " + id));
     }
 
     public ReviewDto createReview(ReviewRequest request) {

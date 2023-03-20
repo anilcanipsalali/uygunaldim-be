@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.uygunaldim.util.ApplicationConstants.USER_BAD_REQUEST;
+import static com.uygunaldim.util.ApplicationConstants.USER_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -35,12 +38,12 @@ public class UserService {
 
     protected User findUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND, "User could not found by id: " + id));
     }
 
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("UYGNALDM-USER-404", "User could not found by username: " + username));
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND, "User could not found by username: " + username));
     }
 
     public UserDto updateUser(UserRequest request) {
@@ -55,11 +58,11 @@ public class UserService {
 
     public UserDto createUser(UserRequest request) {
         if (isUserExistsWithUsername(request)) {
-            throw new AlreadyExistsException("UYGNALDM-USER-400", "User already exists with username: " + request.getUsername());
+            throw new AlreadyExistsException(USER_BAD_REQUEST, "User already exists with username: " + request.getUsername());
         }
 
         if(isUserExistsWithEmail(request)) {
-            throw new AlreadyExistsException("UYGNALDM-USER-400", "User already exists with email: " + request.getEmail());
+            throw new AlreadyExistsException(USER_BAD_REQUEST, "User already exists with email: " + request.getEmail());
         }
 
         return UserDto.of(
