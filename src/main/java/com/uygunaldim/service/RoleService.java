@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ import java.util.List;
 public class RoleService {
 
     private final RoleRepository roleRepository;
+    private final PermissionService permissionService;
 
     public List<RoleDto> getAllRoles() {
         return roleRepository.findAll().stream().map(RoleDto::of).toList();
@@ -45,19 +47,27 @@ public class RoleService {
     }
 
     public RoleDto createRole(RoleRequest request) {
-        if (isRoleExists(request)) {
+        if (isRoleExists(request.getName())) {
             throw new AlreadyExistsException("UYGNALDM-ROLE-400", "Role already exists with name: " + request.getName());
         }
 
         return RoleDto.of(
                 roleRepository.save(Role.builder()
                         .name(request.getName())
-                        .permissions(request.getPermissions().stream().map(Permission::of).toList())
-                        .users(request.getUsers().stream().map(User::of).toList())
+                        .permissions(Collections.emptyList())
+                        .users(Collections.emptyList())
                         .createdAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build())
         );
+    }
+
+    public RoleDto getRoleOrCreateIfNotExists(RoleRequest request) {
+        if (isRoleExists(request.getName())) {
+           return RoleDto.of(roleRepository.findByName(request.getName()));
+        } else {
+            return createRole(request);
+        }
     }
 
     public String deleteRole(Long id) {
@@ -66,7 +76,7 @@ public class RoleService {
         return "Role with name: " + name + " is deleted!";
     }
 
-    private boolean isRoleExists(RoleRequest request) {
-        return roleRepository.existsByName(request.getName());
+    private boolean isRoleExists(String name) {
+        return roleRepository.existsByName(name);
     }
 }

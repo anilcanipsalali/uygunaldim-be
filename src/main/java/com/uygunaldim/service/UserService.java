@@ -1,6 +1,7 @@
 package com.uygunaldim.service;
 
 import com.uygunaldim.data.dto.UserDto;
+import com.uygunaldim.data.dto.request.RoleRequest;
 import com.uygunaldim.data.dto.request.UserRequest;
 import com.uygunaldim.data.entity.Role;
 import com.uygunaldim.data.entity.User;
@@ -9,6 +10,7 @@ import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +22,8 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream().map(UserDto::of).toList();
@@ -43,7 +47,7 @@ public class UserService {
         User user = findUserById(request.getId());
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUpdatedAt(LocalDateTime.now());
         user.setRole(Role.of(request.getRole()));
         return UserDto.of(userRepository.save(user));
@@ -62,10 +66,12 @@ public class UserService {
             userRepository.save(User.builder()
                     .email(request.getEmail())
                     .username(request.getUsername())
-                    .password(request.getPassword())
+                    .password(passwordEncoder.encode(request.getPassword()))
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
-                    .role(Role.of(request.getRole()))
+                    .role(Role.of(roleService.getRoleOrCreateIfNotExists(RoleRequest.builder()
+                            .name(request.getRole().getName())
+                            .build())))
                     .build())
         );
     }

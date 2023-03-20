@@ -29,6 +29,7 @@ public class RefreshTokenService {
         }
         token.setToken(UUID.randomUUID().toString());
         token.setExpiryDate(Date.from(Instant.now().plusSeconds(expiresIn)));
+        refreshTokenRepository.save(token);
         return token.getToken();
     }
 

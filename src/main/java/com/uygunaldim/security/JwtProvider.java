@@ -13,9 +13,9 @@ import java.util.TimeZone;
 @Component
 public class JwtProvider {
     @Value("${uygunaldim.security.token.secret}")
-    private static String appSecret;
+    private String appSecret;
     @Value("${uygunaldim.security.token.expires-in}")
-    private static Long expiresIn;
+    private Long expiresIn;
 
     public String generateToken(Authentication auth) {
         JwtUserDetails userDetails = (JwtUserDetails) auth.getPrincipal();

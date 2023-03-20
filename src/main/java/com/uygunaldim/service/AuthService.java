@@ -43,7 +43,7 @@ public class AuthService {
                 .message("User successfully registered!")
                 .userId(user.getId())
                 .accessToken(token)
-                .refreshToken(refreshTokenService.getRefreshTokenByUser(user.getId()).getToken())
+                .refreshToken(refreshTokenService.createRefreshToken(user.getId()))
                 .expiryDate(jwtProvider.getTokenExpiryDate(token))
                 .build();
     }
