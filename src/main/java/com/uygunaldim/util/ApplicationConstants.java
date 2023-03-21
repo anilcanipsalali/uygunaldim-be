@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 public class ApplicationConstants {
     public static final String RETURN_CODE = "uygunaldim-return-code";
     public static final String RETURN_MESSAGE = "uygunaldim-return-message";
+    public static final String UYGUNALDIM_EXCEPTION_LOG = "UygunAldimException: {}";
     public static final String BAD_REQUEST_CODE = "UYGNALDM-00400";
     public static final String INTERNAL_SERVER_ERROR_CODE = "UYGNALDM-00400";
     public static final String ROLE_BAD_REQUEST = "UYGNALDM-ROLE-400";

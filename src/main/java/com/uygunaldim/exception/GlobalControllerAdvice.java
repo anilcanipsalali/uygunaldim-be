@@ -17,7 +17,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception e) {
-        log.error("Exception: {}", e.getMessage());
+        log.error(UYGUNALDIM_EXCEPTION_LOG, e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, INTERNAL_SERVER_ERROR_CODE);
         responseHeaders.add(RETURN_MESSAGE, e.getMessage());
@@ -26,7 +26,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> methodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error("MethodArgumentNotValidException: {}", e.getMessage());
+        log.error(UYGUNALDIM_EXCEPTION_LOG, e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, BAD_REQUEST_CODE);
         responseHeaders.add(RETURN_MESSAGE, e.getMessage());
@@ -35,7 +35,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<String> handleParameterNotFoundException(UygunAldimException e) {
-        log.error("UygunAldimException: {}", e.getMessage());
+        log.error(UYGUNALDIM_EXCEPTION_LOG, e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, e.getErrorCode());
         responseHeaders.add(RETURN_MESSAGE, e.getErrorMessage());
@@ -44,7 +44,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<String> handleAlreadyExistsException(UygunAldimException e) {
-        log.error("UygunAldimException: {}", e.getMessage());
+        log.error(UYGUNALDIM_EXCEPTION_LOG, e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, e.getErrorCode());
         responseHeaders.add(RETURN_MESSAGE, e.getErrorMessage());
@@ -53,7 +53,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> handleAlreadyExistsException(AuthenticationException e) {
-        log.error("UygunAldimException: {}", e.getMessage());
+        log.error(UYGUNALDIM_EXCEPTION_LOG, e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, BAD_REQUEST_CODE);
         responseHeaders.add(RETURN_MESSAGE, e.getLocalizedMessage());
