@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.uygunaldim.util.ApplicationConstants.RETURN_CODE;
-import static com.uygunaldim.util.ApplicationConstants.RETURN_MESSAGE;
+import static com.uygunaldim.util.ApplicationConstants.*;
 
 @Slf4j
 @RestControllerAdvice
@@ -19,7 +19,7 @@ public class GlobalControllerAdvice {
     public ResponseEntity<String> handleGlobalException(Exception e) {
         log.error("Exception: {}", e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(RETURN_CODE, "UYGNALDM-00500");
+        responseHeaders.add(RETURN_CODE, INTERNAL_SERVER_ERROR_CODE);
         responseHeaders.add(RETURN_MESSAGE, e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(responseHeaders).build();
     }
@@ -28,9 +28,9 @@ public class GlobalControllerAdvice {
     public ResponseEntity<String> methodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException: {}", e.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(RETURN_CODE, "UYGNALDM-00400");
+        responseHeaders.add(RETURN_CODE, BAD_REQUEST_CODE);
         responseHeaders.add(RETURN_MESSAGE, e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(responseHeaders).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(responseHeaders).build();
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -48,6 +48,15 @@ public class GlobalControllerAdvice {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(RETURN_CODE, e.getErrorCode());
         responseHeaders.add(RETURN_MESSAGE, e.getErrorMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(responseHeaders).build();
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAlreadyExistsException(AuthenticationException e) {
+        log.error("UygunAldimException: {}", e.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add(RETURN_CODE, BAD_REQUEST_CODE);
+        responseHeaders.add(RETURN_MESSAGE, e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(responseHeaders).build();
     }
 }
