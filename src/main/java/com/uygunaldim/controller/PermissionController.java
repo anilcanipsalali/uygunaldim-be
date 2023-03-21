@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/permission")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequiredArgsConstructor
 public class PermissionController {
     private final PermissionService permissionService;

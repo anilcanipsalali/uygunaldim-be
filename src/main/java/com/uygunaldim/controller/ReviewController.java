@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/review")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequiredArgsConstructor
 public class ReviewController {
 

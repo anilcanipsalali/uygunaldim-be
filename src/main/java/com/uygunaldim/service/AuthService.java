@@ -1,5 +1,6 @@
 package com.uygunaldim.service;
 
+import com.uygunaldim.data.dto.request.LoginRequest;
 import com.uygunaldim.data.dto.request.RefreshTokenRequest;
 import com.uygunaldim.data.dto.request.UserRequest;
 import com.uygunaldim.data.dto.response.AuthResponse;
@@ -26,26 +27,29 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-    public AuthResponse login(UserRequest request) {
-        User user = userService.findUserByUsername(request.getUsername());
+    public AuthResponse login(LoginRequest request) {
+        Long id = userService.findUserByUsername(request.getUsername()).getId();
         String token = generateToken(request);
         return AuthResponse.builder()
                 .message("User successfully logon!")
-                .userId(user.getId())
+                .userId(id)
                 .accessToken(token)
-                .refreshToken(refreshTokenService.getRefreshTokenByUser(user.getId()).getToken())
+                .refreshToken(refreshTokenService.getRefreshTokenByUser(id).getToken())
                 .expiryDate(jwtProvider.getTokenExpiryDate(token))
                 .build();
     }
 
     public AuthResponse register(UserRequest request) {
-        User user = User.of(userService.createUser(request));
-        String token = generateToken(request);
+        Long id = userService.createUser(request).getId();
+        String token = generateToken(LoginRequest.builder()
+                            .password(request.getPassword())
+                            .username(request.getUsername())
+                            .build());
         return AuthResponse.builder()
                 .message("User successfully registered!")
-                .userId(user.getId())
+                .userId(id)
                 .accessToken(token)
-                .refreshToken(refreshTokenService.createRefreshToken(user.getId()))
+                .refreshToken(refreshTokenService.createRefreshToken(id))
                 .expiryDate(jwtProvider.getTokenExpiryDate(token))
                 .build();
     }
@@ -75,7 +79,7 @@ public class AuthService {
         return jwtProvider.validateToken(token);
     }
 
-    protected String generateToken(UserRequest request) {
+    protected String generateToken(LoginRequest request) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword());
         Authentication auth = authenticationManager.authenticate(token);

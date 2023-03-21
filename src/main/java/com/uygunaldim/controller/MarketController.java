@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/market")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequiredArgsConstructor
 public class MarketController {
     private final MarketService marketService;

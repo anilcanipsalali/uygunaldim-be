@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -22,7 +23,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(Long.toString(userDetails.getId()))
                 .setIssuedAt(new Date())
-                .setExpiration(Date.from(Instant.now().plusSeconds(expiresIn)))
+                .setExpiration(Date.from(Instant.now().plus(expiresIn, ChronoUnit.DAYS)))
                 .signWith(SignatureAlgorithm.HS512, appSecret).compact();
     }
 
@@ -30,7 +31,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(Long.toString(userId))
                 .setIssuedAt(new Date())
-                .setExpiration(Date.from(Instant.now().plusSeconds(expiresIn)))
+                .setExpiration(Date.from(Instant.now().plus(expiresIn, ChronoUnit.DAYS)))
                 .signWith(SignatureAlgorithm.HS512, appSecret).compact();
     }
 
@@ -53,7 +54,7 @@ public class JwtProvider {
     public boolean validateToken(String token) {
         try {
             Date expiration = Jwts.parser().setSigningKey(appSecret).parseClaimsJws(token).getBody().getExpiration();
-            return expiration.before(Date.from(Instant.now()));
+            return !expiration.before(Date.from(Instant.now()));
         } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException
                 | IllegalArgumentException ex) {
             return false;

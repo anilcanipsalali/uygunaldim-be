@@ -1,5 +1,6 @@
 package com.uygunaldim.controller;
 
+import com.uygunaldim.data.dto.request.LoginRequest;
 import com.uygunaldim.data.dto.request.RefreshTokenRequest;
 import com.uygunaldim.data.dto.request.UserRequest;
 import com.uygunaldim.data.dto.response.AuthResponse;
@@ -18,8 +19,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody UserRequest userRequest) {
-        return ResponseEntity.ok(authService.login(userRequest));
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 
     @PostMapping("/register")

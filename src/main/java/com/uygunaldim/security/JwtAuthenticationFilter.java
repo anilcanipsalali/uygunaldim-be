@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.uygunaldim.util.ApplicationConstants.AUTH_INTERNAL_SERVER_ERROR;
 
@@ -32,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwtToken = getJwtFromRequest(request);
             if (StringUtils.hasText(jwtToken) && jwtProvider.validateToken(jwtToken)) {
                 UserDetails user = userDetailsService.loadUserById(jwtProvider.getUserIdFromJwt(jwtToken));
-                if (user != null) {
+                if (Objects.nonNull(user)) {
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);

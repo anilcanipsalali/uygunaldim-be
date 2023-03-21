@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class RefreshTokenService {
             token.setUser(user);
         }
         token.setToken(UUID.randomUUID().toString());
-        token.setExpiryDate(Date.from(Instant.now().plusSeconds(expiresIn)));
+        token.setExpiryDate(Date.from(Instant.now().plus(expiresIn, ChronoUnit.DAYS)));
         refreshTokenRepository.save(token);
         return token.getToken();
     }
