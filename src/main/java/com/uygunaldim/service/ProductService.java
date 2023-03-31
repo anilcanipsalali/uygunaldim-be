@@ -52,7 +52,7 @@ public class ProductService {
         product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
         product.setLogo(request.getLogo());
-        product.setMarket(marketService.getMarketIfExistsOrCreate(request.getMarket().getName()));
+        product.setMarket(marketService.getMarketIfExistsOrCreate(request.getMarket().getName(), request.getMarket().getLogo()));
         product.setUpdatedAt(LocalDateTime.now());
 
         return ProductDto.of(productLogService.log(productRepository.save(product), OperationEnum.UPDATE));
@@ -74,7 +74,8 @@ public class ProductService {
                     .logo(request.getLogo())
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
-                    .market(marketService.getMarketIfExistsOrCreate(request.getMarket().getName()))
+                    .market(marketService.getMarketIfExistsOrCreate(request.getMarket().getName(),
+                            request.getMarket().getLogo()))
                     .reviews(Collections.emptyList())
                     .build()), OperationEnum.CREATE
                 );

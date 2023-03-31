@@ -69,12 +69,13 @@ public class MarketService {
                 .build()));
     }
 
-    public Market getMarketIfExistsOrCreate(String name) {
+    public Market getMarketIfExistsOrCreate(String name, String marketLogo) {
         if (isMarketExistsByName(name)) {
             return findMarketByName(name);
         } else {
             return Market.of(createMarket(MarketRequest.builder()
                     .name(name)
+                    .logo(marketLogo)
                     .build()));
         }
     }
