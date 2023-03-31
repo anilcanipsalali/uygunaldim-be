@@ -3,6 +3,7 @@ package com.uygunaldim.controller;
 import com.uygunaldim.data.dto.MarketDto;
 import com.uygunaldim.data.dto.request.MarketRequest;
 import com.uygunaldim.service.MarketService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/market")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
+@SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 public class MarketController {
     private final MarketService marketService;

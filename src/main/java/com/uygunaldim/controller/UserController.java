@@ -3,6 +3,7 @@ package com.uygunaldim.controller;
 import com.uygunaldim.data.dto.UserDto;
 import com.uygunaldim.data.dto.request.UserRequest;
 import com.uygunaldim.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
+@SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

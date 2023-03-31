@@ -3,6 +3,7 @@ package com.uygunaldim.controller;
 import com.uygunaldim.data.dto.RoleDto;
 import com.uygunaldim.data.dto.request.RoleRequest;
 import com.uygunaldim.service.RoleService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/role")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
+@SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
