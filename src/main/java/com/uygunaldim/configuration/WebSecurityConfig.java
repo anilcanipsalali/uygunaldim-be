@@ -69,7 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/v3/api-docs/**",
                     "/h2/**",
                     "/api/auth/login",
-                    "/api/auth/register");
+                    "/api/auth/register",
+                    "/api/auth/validate");
+        } else {
+            web.ignoring().antMatchers("/api/auth/login",
+                    "/api/auth/register",
+                    "/api/auth/validate");
         }
     }
 }
