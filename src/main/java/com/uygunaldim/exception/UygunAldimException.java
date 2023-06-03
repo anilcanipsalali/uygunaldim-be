@@ -1,6 +1,8 @@
 package com.uygunaldim.exception;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 @EqualsAndHashCode(callSuper = true)

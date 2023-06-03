@@ -9,11 +9,12 @@ import com.uygunaldim.exception.NotFoundException;
 import com.uygunaldim.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
 
 import static com.uygunaldim.util.ApplicationConstants.PRODUCT_BAD_REQUEST;
 import static com.uygunaldim.util.ApplicationConstants.PRODUCT_NOT_FOUND;
@@ -27,12 +28,12 @@ public class ProductService {
     private final ProductLogService productLogService;
     private final MarketService marketService;
 
-    public List<ProductDto> getAllProducts() {
-        return productRepository.findAllByOrderByPriceAsc().stream().map(ProductDto::of).toList();
+    public Page<ProductDto> getAllProducts(int offset, int pageSize) {
+        return productRepository.findAllByOrderByPriceAsc(PageRequest.of(offset, pageSize)).map(ProductDto::of);
     }
 
-    public List<ProductDto> getAllProductsByCategory(String category) {
-        return productRepository.findAllByCategoryOrderByPriceAsc(category).stream().map(ProductDto::of).toList();
+    public Page<ProductDto> getAllProductsByCategory(String category, int offset, int pageSize) {
+        return productRepository.findAllByCategoryOrderByPriceAsc(category, PageRequest.of(offset, pageSize)).map(ProductDto::of);
     }
 
     public ProductDto getProductById(Long id) {

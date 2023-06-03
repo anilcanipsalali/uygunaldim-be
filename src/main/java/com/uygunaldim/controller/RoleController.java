@@ -17,6 +17,7 @@ import java.util.List;
 @SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 public class RoleController {
+
     private final RoleService roleService;
 
     @GetMapping
