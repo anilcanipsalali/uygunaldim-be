@@ -26,7 +26,7 @@ public class RefreshToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Date expiryDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;

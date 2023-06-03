@@ -3,12 +3,23 @@ spring:
   profiles:
     active: default
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        connection:
+          driver_class: org.postgresql.Driver
+          username: postgres
+          password: Anilcan
+          url: jdbc:postgresql://localhost:5432/uygunaldim_db
+          pool_size: 1
   datasource:
-    username: sa
-    password: password
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
+    username: postgres
+    password: Anilcan
+    url: jdbc:postgresql://localhost:5432/uygunaldim_db
 uygunaldim:
   security:
     token:

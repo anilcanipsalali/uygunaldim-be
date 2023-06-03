@@ -11,15 +11,15 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "\"USER\"")
+@Table(name = "USERS")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class User {
     @Id
-    @SequenceGenerator(name = "seqUserId", sequenceName = "seq_user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUserId")
+    @SequenceGenerator(name = "seqUsersId", sequenceName = "seq_users_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUsersId")
     private Long id;
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
