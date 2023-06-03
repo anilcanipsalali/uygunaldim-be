@@ -28,8 +28,6 @@ public class Product {
     private String name;
     @Column(name = "CATEGORY")
     private String category;
-    @Column(name = "WEIGHT")
-    private BigDecimal weight;
     @Column(name = "PRICE")
     private BigDecimal price;
     @Column(name = "LOGO")
@@ -50,7 +48,6 @@ public class Product {
                 .vendor(productDto.getVendor())
                 .name(productDto.getName())
                 .category(productDto.getCategory())
-                .weight(productDto.getWeight())
                 .price(productDto.getPrice())
                 .logo(productDto.getLogo())
                 .createdAt(productDto.getCreatedAt())
@@ -66,7 +63,6 @@ public class Product {
                 .vendor(marketProductDto.getVendor())
                 .name(marketProductDto.getName())
                 .category(marketProductDto.getCategory())
-                .weight(marketProductDto.getWeight())
                 .price(marketProductDto.getPrice())
                 .logo(marketProductDto.getLogo())
                 .createdAt(marketProductDto.getCreatedAt())

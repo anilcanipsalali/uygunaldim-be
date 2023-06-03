@@ -26,6 +26,34 @@ uygunaldim:
       secret: uygunaldim100
       expires-in: 1 #Day
 ---
+#TEST
+spring:
+  profiles:
+    active: test
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        connection:
+          driver_class: org.postgresql.Driver
+          username: postgres
+          password: Anilcan
+          url: jdbc:postgresql://localhost:5432/uygunaldim_db
+          pool_size: 1
+  datasource:
+    username: postgres
+    password: Anilcan
+    url: jdbc:postgresql://localhost:5432/uygunaldim_db
+uygunaldim:
+  security:
+    token:
+      secret: uygunaldim100
+      expires-in: 1 #Day
+---
 # DEV
 spring:
   profiles:

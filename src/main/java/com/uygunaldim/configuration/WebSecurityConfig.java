@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.uygunaldim.util.ApplicationConstants.DEVELOPMENT_ENVIRONMENT;
+import static com.uygunaldim.util.ApplicationConstants.TEST_ENVIRONMENT;
 
 @Configuration
 @EnableWebSecurity
@@ -63,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        if (environment.equals(DEVELOPMENT_ENVIRONMENT)) {
+        if (environment.equals(DEVELOPMENT_ENVIRONMENT) || environment.equals(TEST_ENVIRONMENT)) {
             web.ignoring().antMatchers("/swagger-ui/**",
                     "/swagger-ui.html",
                     "/v3/api-docs/**",

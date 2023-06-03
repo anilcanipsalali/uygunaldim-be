@@ -22,5 +22,6 @@ public class ApplicationConstants {
     public static final String AUTH_UNAUTHORIZED = "UYGNALDM-AUTH-401";
     public static final String AUTH_INTERNAL_SERVER_ERROR = "UYGNALDM-AUTH-500";
     public static final String DEVELOPMENT_ENVIRONMENT = "dev";
+    public static final String TEST_ENVIRONMENT = "test";
 }
 

@@ -49,7 +49,6 @@ public class ProductService {
         product.setVendor(request.getVendor());
         product.setName(request.getName());
         product.setCategory(request.getCategory());
-        product.setWeight(request.getWeight());
         product.setPrice(request.getPrice());
         product.setLogo(request.getLogo());
         product.setMarket(marketService.getMarketIfExistsOrCreate(request.getMarket().getName(), request.getMarket().getLogo()));
@@ -69,7 +68,6 @@ public class ProductService {
                     .vendor(request.getVendor())
                     .name(request.getName())
                     .category(request.getCategory())
-                    .weight(request.getWeight())
                     .price(request.getPrice())
                     .logo(request.getLogo())
                     .createdAt(LocalDateTime.now())

@@ -15,7 +15,6 @@ public class ProductDto {
     private String vendor;
     private String name;
     private String category;
-    private BigDecimal weight;
     private BigDecimal price;
     private String logo;
     private LocalDateTime createdAt;
@@ -29,7 +28,6 @@ public class ProductDto {
                 .vendor(product.getVendor())
                 .name(product.getName())
                 .category(product.getCategory())
-                .weight(product.getWeight())
                 .price(product.getPrice())
                 .logo(product.getLogo())
                 .createdAt(product.getCreatedAt())

@@ -25,7 +25,6 @@ public class MarketProductDto {
                 .vendor(product.getVendor())
                 .name(product.getName())
                 .category(product.getCategory())
-                .weight(product.getWeight())
                 .price(product.getPrice())
                 .logo(product.getLogo())
                 .createdAt(product.getCreatedAt())
