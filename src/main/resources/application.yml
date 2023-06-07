@@ -43,7 +43,7 @@ spring:
           username: postgres
           password: Anilcan
           url: jdbc:postgresql://localhost:5432/uygunaldim_db
-          pool_size: 1
+          pool_size: 5
   datasource:
     username: postgres
     password: Anilcan

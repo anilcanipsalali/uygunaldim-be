@@ -13,8 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 
 import static com.uygunaldim.util.ApplicationConstants.PRODUCT_BAD_REQUEST;
 import static com.uygunaldim.util.ApplicationConstants.PRODUCT_NOT_FOUND;
@@ -28,16 +30,20 @@ public class ProductService {
     private final ProductLogService productLogService;
     private final MarketService marketService;
 
-    public Page<ProductDto> getAllProducts(int offset, int pageSize) {
-        return productRepository.findAllByOrderByPriceAsc(PageRequest.of(offset, pageSize)).map(ProductDto::of);
+    public Page<ProductDto> getAllProducts(int offset, int pageSize, BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findAllByPriceGreaterThanAndPriceLessThanOrderByPriceAsc(PageRequest.of(offset, pageSize), minPrice, maxPrice).map(ProductDto::of);
     }
 
-    public Page<ProductDto> getAllProductsByCategory(String category, int offset, int pageSize) {
-        return productRepository.findAllByCategoryOrderByPriceAsc(category, PageRequest.of(offset, pageSize)).map(ProductDto::of);
+    public Page<ProductDto> getAllProductsByCategory(int offset, int pageSize, String category, BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findAllByCategoryAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(PageRequest.of(offset, pageSize), category, minPrice, maxPrice).map(ProductDto::of);
     }
 
     public ProductDto getProductById(Long id) {
         return ProductDto.of(findProductById(id));
+    }
+
+    public List<String> getAllCategories() {
+        return productRepository.findAllCategories();
     }
 
     protected Product findProductById(Long id) {
