@@ -31,11 +31,18 @@ public class ProductService {
     private final MarketService marketService;
 
     public Page<ProductDto> getAllProducts(int offset, int pageSize, BigDecimal minPrice, BigDecimal maxPrice) {
-        return productRepository.findAllByPriceGreaterThanAndPriceLessThanOrderByPriceAsc(PageRequest.of(offset, pageSize), minPrice, maxPrice).map(ProductDto::of);
+        return productRepository.findAllByPriceGreaterThanAndPriceLessThanOrderByPriceAsc(
+                PageRequest.of(offset, pageSize), minPrice, maxPrice).map(ProductDto::of);
     }
 
     public Page<ProductDto> getAllProductsByCategory(int offset, int pageSize, String category, BigDecimal minPrice, BigDecimal maxPrice) {
-        return productRepository.findAllByCategoryAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(PageRequest.of(offset, pageSize), category, minPrice, maxPrice).map(ProductDto::of);
+        return productRepository.findAllByCategoryAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(
+                PageRequest.of(offset, pageSize), category, minPrice, maxPrice).map(ProductDto::of);
+    }
+
+    public Page<ProductDto> getAllProductsByName(int offset, int pageSize, String name, BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findAllByNameContainsIgnoreCaseAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(
+                PageRequest.of(offset, pageSize), name, minPrice, maxPrice).map(ProductDto::of);
     }
 
     public ProductDto getProductById(Long id) {

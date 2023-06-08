@@ -39,6 +39,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProductsByCategory(offset, pageSize, category, minPrice, maxPrice));
     }
 
+    @GetMapping("/name")
+    public ResponseEntity<Page<ProductDto>> getAllProductsByName(@RequestParam int offset,
+                                                                     @RequestParam int pageSize,
+                                                                     @RequestParam String name,
+                                                                     @RequestParam BigDecimal minPrice,
+                                                                     @RequestParam BigDecimal maxPrice) {
+        return ResponseEntity.ok(productService.getAllProductsByName(offset, pageSize, name, minPrice, maxPrice));
+    }
+
     @GetMapping("/category/all")
     public ResponseEntity<List<String>> getAllCategories() {
         return ResponseEntity.ok(productService.getAllCategories());

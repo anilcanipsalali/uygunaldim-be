@@ -17,6 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Boolean existsByNameAndMarketName(String name, String market);
     Page<Product> findAllByCategoryAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(Pageable pageable, String category, BigDecimal minPrice, BigDecimal maxPrice);
     Page<Product> findAllByPriceGreaterThanAndPriceLessThanOrderByPriceAsc(Pageable pageable, BigDecimal minPrice, BigDecimal maxPrice);
+    Page<Product> findAllByNameContainsIgnoreCaseAndPriceGreaterThanAndPriceLessThanOrderByPriceAsc(Pageable pageable, String name, BigDecimal minPrice, BigDecimal maxPrice);
     @Query("SELECT p.category FROM Product p GROUP BY p.category")
     List<String> findAllCategories();
 }
